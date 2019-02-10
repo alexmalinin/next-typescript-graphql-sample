@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Link from 'next/link';
-import Layout from '../components/Layout';
-import { Mutation } from 'react-apollo';
 import { Button } from 'antd';
-import { gql } from 'apollo-boost';
+
+import Layout from '../components/Layout';
+
+import { LoginComponent } from '../generated/apolloComponents';
 
 const IndexPage: React.FunctionComponent = () => {
   return (
@@ -15,23 +16,13 @@ const IndexPage: React.FunctionComponent = () => {
         </Link>
       </p>
 
-      <Mutation
-        mutation={gql`
-          mutation {
-            login(email: "test@test.test", password: "password") {
-              id
-              name
-              firstName
-              lastName
-              email
-            }
-          }
-        `}
-      >
+      <LoginComponent>
         {mutate => (
           <Button
             onClick={async () => {
-              const response = await mutate();
+              const response = await mutate({
+                variables: { email: 'test@test.test', password: 'password' },
+              });
 
               console.log(response);
             }}
@@ -39,7 +30,7 @@ const IndexPage: React.FunctionComponent = () => {
             Login
           </Button>
         )}
-      </Mutation>
+      </LoginComponent>
     </Layout>
   );
 };
