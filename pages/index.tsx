@@ -2,6 +2,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import { Mutation } from 'react-apollo';
+import { Button } from 'antd';
 import { gql } from 'apollo-boost';
 
 const IndexPage: React.FunctionComponent = () => {
@@ -28,7 +29,7 @@ const IndexPage: React.FunctionComponent = () => {
         `}
       >
         {mutate => (
-          <button 
+          <Button
             onClick={async () => {
               const response = await mutate();
 
@@ -36,7 +37,7 @@ const IndexPage: React.FunctionComponent = () => {
             }}
           >
             Login
-          </button>
+          </Button>
         )}
       </Mutation>
     </Layout>
